@@ -55,4 +55,54 @@ class HashMaps {
 
         return List.of(); // brak pasującej pary
     }
+
+    /**
+       Algorytm: countGeometricTriplets
+
+       Zadanie:
+       Zlicza liczbę trójek geometrycznych (a, b, c) w liście liczb całkowitych,
+       dla których b = a * r i c = b * r, czyli: a, a*r, a*r^2
+
+       Działanie:
+       - Używamy dwóch map:
+         • leftMap — częstotliwości liczb po lewej stronie analizowanej liczby
+         • rightMap — częstotliwości liczb po prawej stronie analizowanej liczby
+       - Najpierw uzupełniamy rightMap — ile razy każda liczba występuje.
+       - Iterujemy po elementach jako potencjalnym "środku" trójki (czyli `b`).
+         • Odejmujemy bieżący element z rightMap.
+         • Jeśli `x % r == 0`, to:
+           - liczba trójek to leftMap[x / r] * rightMap[x * r]
+         • Dodajemy x do leftMap — będzie dostępny przy kolejnych iteracjach.
+
+       Złożoność:
+       - Czasowa: O(n), bo każde wystąpienie liczby analizowane jest tylko raz
+       - Pamięciowa: O(n), ze względu na dwie mapy
+     */
+    public static long countGeometricTriplets(List<Long> nums, long r) {
+        Map<Long, Long> leftMap = new HashMap<>();
+        Map<Long, Long> rightMap = new HashMap<>();
+        long count = 0;
+
+        // Zlicz wszystkie wystąpienia w rightMap
+        for (long x : nums) {
+            rightMap.put(x, rightMap.getOrDefault(x, 0L) + 1);
+        }
+
+        // Iterujemy po elementach jako potencjalnych środkach trójek
+        for (long x : nums) {
+            // Usuwamy aktualny element z rightMap, bo właśnie go przetwarzamy
+            rightMap.put(x, rightMap.get(x) - 1);
+
+            if (x % r == 0) {
+                long left = leftMap.getOrDefault(x / r, 0L);
+                long right = rightMap.getOrDefault(x * r, 0L);
+                count += left * right;
+            }
+
+            // Zwiększamy licznik aktualnej liczby w leftMap
+            leftMap.put(x, leftMap.getOrDefault(x, 0L) + 1);
+        }
+
+        return count;
+    }
 }

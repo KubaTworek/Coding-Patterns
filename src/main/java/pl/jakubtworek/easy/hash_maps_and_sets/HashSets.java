@@ -122,4 +122,45 @@ class HashSets {
             }
         }
     }
-}
+
+    /**
+       Algorytm: longestConsecutiveSequenceLength
+
+       Zadanie:
+       Znajduje długość najdłuższego ciągu kolejnych liczb całkowitych w liście `nums`,
+       niezależnie od ich kolejności i duplikatów.
+
+       Przykład:
+       Dla listy [100, 4, 200, 1, 3, 2], najdłuższy ciąg to [1, 2, 3, 4], więc wynik to 4.
+
+       Złożoność obliczeniowa:
+       - Czasowa: O(n)
+         - Tworzenie zbioru: O(n)
+         - Dla każdego elementu w zbiorze wykonujemy wewnętrzną pętlę tylko wtedy,
+           gdy element jest początkiem nowego ciągu (czyli `num - 1` nie występuje w zbiorze).
+         - Każdy element zostanie odwiedzony maksymalnie raz w tej pętli.
+       - Pamięciowa: O(n)
+         - Potrzebujemy zbioru `Set`, aby sprawdzać obecność liczby w czasie O(1).
+     */
+    static int longestConsecutiveSequenceLength(List<Integer> nums) {
+        Set<Integer> uniqueNumbers = new HashSet<>(nums);
+        int maxLength = 0;
+
+        for (int num : uniqueNumbers) {
+            // Rozpocznij nowy ciąg tylko wtedy, gdy num jest początkiem (nie ma poprzednika)
+            if (!uniqueNumbers.contains(num - 1)) {
+                int currentNum = num;
+                int currentLength = 1;
+
+                // Rozszerzaj ciąg, dopóki kolejne liczby istnieją
+                while (uniqueNumbers.contains(currentNum + 1)) {
+                    currentNum++;
+                    currentLength++;
+                }
+
+                maxLength = Math.max(maxLength, currentLength);
+            }
+        }
+
+        return maxLength;
+    }}

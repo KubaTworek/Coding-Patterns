@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static pl.jakubtworek.easy.hash_maps_and_sets.HashMaps.countGeometricTriplets;
 import static pl.jakubtworek.easy.hash_maps_and_sets.HashMaps.findTwoSumIndicesUnsorted;
 
 class HashMapsTest {
@@ -37,6 +38,26 @@ class HashMapsTest {
                 Arguments.of(List.of(3, 3), 6, List.of(0, 1)),
                 Arguments.of(List.of(1, 2, 3, 4), 8, List.of()),       // brak rozwiązania
                 Arguments.of(List.of(0, -1, 2, -3, 1), -2, List.of(1, 3))
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideGeometricTripletsTestCases")
+    void testCountGeometricTriplets(List<Long> nums, long ratio, long expected) {
+        long result = countGeometricTriplets(nums, ratio);
+        assertEquals(expected, result);
+    }
+
+    private static Stream<Arguments> provideGeometricTripletsTestCases() {
+        return Stream.of(
+                Arguments.of(List.of(1L, 4L, 16L, 64L), 4, 2),
+                Arguments.of(List.of(1L, 2L, 2L, 4L), 2, 2),
+                Arguments.of(List.of(1L, 1L, 1L, 1L), 1, 4),
+                Arguments.of(List.of(1L, 3L, 9L, 9L, 27L, 81L), 3, 6),
+                Arguments.of(List.of(1L, 5L, 5L, 25L, 125L), 5, 4),
+                Arguments.of(List.of(1L, 2L, 3L, 4L, 5L), 2, 0),
+                Arguments.of(List.of(), 2, 0),
+                Arguments.of(List.of(1L), 3, 0)
         );
     }
 }

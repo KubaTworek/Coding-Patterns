@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static pl.jakubtworek.easy.hash_maps_and_sets.HashSets.applyZeroStriping;
-import static pl.jakubtworek.easy.hash_maps_and_sets.HashSets.isValidSudoku;
+import static pl.jakubtworek.easy.hash_maps_and_sets.HashSets.*;
 
 class HashSetsTest {
 
@@ -132,5 +131,24 @@ class HashSetsTest {
             copy.add(new ArrayList<>(row));
         }
         return copy;
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideTestCases")
+    void testLongestChainOfConsecutiveNumbers(List<Integer> input, int expected) {
+        int result = longestConsecutiveSequenceLength(input);
+        assertEquals(expected, result);
+    }
+
+    private static Stream<Arguments> provideTestCases() {
+        return Stream.of(
+                Arguments.of(List.of(100, 4, 200, 1, 3, 2), 4), // 1,2,3,4),
+                Arguments.of(List.of(0, -1, 1, 2), 4), // -1,0,1,2),
+                Arguments.of(List.of(9, 1, 3, 10, 2, 4), 4), // 1,2,3,4),
+                Arguments.of(List.of(5, 100, 101, 102, 103), 4), // 100-103),
+                Arguments.of(List.of(5), 1), // tylko 1 liczba
+                Arguments.of(List.of(), 0), // pusta lista
+                Arguments.of(List.of(1, 2, 0, 1), 3) // 0,1,2 z duplikatem
+        );
     }
 }
