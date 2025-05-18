@@ -5,10 +5,12 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import pl.jakubtworek.easy.linked_list.SinglyLinkedList;
 
+import java.util.List;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static pl.jakubtworek.easy.linked_list.Traversal.findIntersectionNode;
+import static pl.jakubtworek.easy.linked_list.Traversal.*;
 
 class TraversalTest {
 
@@ -56,6 +58,38 @@ class TraversalTest {
                 Arguments.of(listA1, listB1, common),
                 Arguments.of(listA2, listB2, null),
                 Arguments.of(shared, shared, shared.head)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideListsForPalindromeCheck")
+    void testPalindromicLinkedList(List<Integer> values, boolean expected) {
+        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+        values.forEach(list::append);
+
+        boolean result = isLinkedListPalindrome(list);
+        assertEquals(expected, result);
+    }
+
+    static Stream<org.junit.jupiter.params.provider.Arguments> provideListsForPalindromeCheck() {
+        return Stream.of(
+                // ✅ Pusta lista — palindrom
+                Arguments.of(List.of(), true),
+
+                // ✅ Jeden element — palindrom
+                Arguments.of(List.of(1), true),
+
+                // ✅ Parzysta liczba elementów — palindrom
+                Arguments.of(List.of(1, 2, 2, 1), true),
+
+                // ✅ Nieparzysta liczba elementów — palindrom
+                Arguments.of(List.of(1, 2, 3, 2, 1), true),
+
+                // ❌ Parzysta — niepalindrom
+                Arguments.of(List.of(1, 2, 3, 4), false),
+
+                // ❌ Nieparzysta — niepalindrom
+                Arguments.of(List.of(1, 2, 3, 4, 5), false)
         );
     }
 }
