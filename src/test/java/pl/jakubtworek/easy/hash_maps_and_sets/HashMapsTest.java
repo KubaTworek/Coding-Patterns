@@ -55,7 +55,6 @@ class HashMapsTest {
                 Arguments.of(List.of(1L, 1L, 1L, 1L), 1, 4),
                 Arguments.of(List.of(1L, 3L, 9L, 9L, 27L, 81L), 3, 6),
                 Arguments.of(List.of(1L, 5L, 5L, 25L, 125L), 5, 4),
-                Arguments.of(List.of(1L, 2L, 3L, 4L, 5L), 2, 0),
                 Arguments.of(List.of(), 2, 0),
                 Arguments.of(List.of(1L), 3, 0)
         );

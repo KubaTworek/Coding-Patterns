@@ -54,4 +54,45 @@ class NonIntuitiveSearchSpace {
 
         return totalWood >= requiredWood;
     }
+
+
+    /**
+     * Algorytm: findLocalMaximumIndex
+     *
+     * Zadanie:
+     * Znajduje indeks lokalnego maksimum w liście liczb całkowitych `nums`.
+     * Lokalny maksymalny element to taki, który jest większy od swojego sąsiada z prawej strony.
+     * Gwarantuje się, że lokalne maksimum istnieje (dzięki warunkowi brzegowemu).
+     *
+     * Przykład:
+     * Dla nums = [1, 3, 5, 4, 2] → wynik: 2 (bo 5 > 4)
+     *
+     * Działanie:
+     * - Używamy wyszukiwania binarnego do znalezienia lokalnego maksimum.
+     * - Jeśli środek `mid` jest większy niż `mid + 1`, to lokalny maksimum jest po lewej lub w `mid`.
+     * - W przeciwnym razie, szukamy po prawej stronie.
+     * - Proces kontynuujemy aż `left == right`, wtedy to jest lokalny maksimum.
+     *
+     * Złożoność:
+     * - Czasowa: O(log n)
+     *   • Ponieważ dzielimy zakres wyszukiwania na pół w każdej iteracji.
+     * - Pamięciowa: O(1)
+     *   • Stała liczba zmiennych – brak dodatkowych struktur danych.
+     */
+    public static int findLocalMaximumIndex(List<Integer> nums) {
+        int left = 0;
+        int right = nums.size() - 1;
+
+        while (left < right) {
+            int mid = (left + right) / 2;
+
+            if (nums.get(mid) > nums.get(mid + 1)) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        return left; // lub right, bo left == right
+    }
 }
