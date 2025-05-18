@@ -2,6 +2,7 @@ package pl.jakubtworek.easy.heaps;
 
 import pl.jakubtworek.easy.linked_list.SinglyLinkedList;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -56,5 +57,57 @@ class Sorting {
 
         result.head = dummy.next;
         return result;
+    }
+
+
+    /**
+       Algorytm: sortNearlySortedArray
+
+       Zadanie:
+       Sortuje tablicę, w której każdy element znajduje się maksymalnie `k` pozycji
+       od swojej docelowej pozycji w wersji posortowanej (tzw. "k-sorted array").
+
+       Przykład:
+       Input:  nums = [5, 1, 9, 4, 7, 10], k = 2
+       Output: [1, 4, 5, 7, 9, 10]
+
+       Działanie:
+       - Wstawiamy pierwsze `k + 1` elementów do min-kopca (PriorityQueue).
+       - Iterujemy po pozostałych elementach:
+         • Usuwamy najmniejszy element z kopca i wstawiamy go na odpowiednie miejsce w tablicy.
+         • Wrzucamy kolejny element z wejściowej tablicy do kopca.
+       - Po przejściu wszystkich elementów, usuwamy pozostałe elementy z kopca i uzupełniamy tablicę.
+
+       Złożoność:
+       - Czasowa: O(n log k)
+         • Budowa kopca: O(k)
+         • Dla każdego z n elementów: dodanie do kopca + usunięcie minimum = O(log k)
+       - Pamięciowa: O(k)
+         • Min-kopiec przechowuje maksymalnie k+1 elementów
+     */
+    static List<Integer> sortNearlySortedArray(List<Integer> nums, int k) {
+        if (nums == null || nums.size() <= 1 || k <= 0) return nums;
+
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        List<Integer> sorted = new ArrayList<>(nums.size());
+
+        // Krok 1: Wypełnij kopiec pierwszymi k+1 elementami
+        int i = 0;
+        for (; i <= Math.min(k, nums.size() - 1); i++) {
+            minHeap.add(nums.get(i));
+        }
+
+        // Krok 2: Przetwarzaj resztę elementów
+        for (; i < nums.size(); i++) {
+            sorted.add(minHeap.poll());
+            minHeap.add(nums.get(i));
+        }
+
+        // Krok 3: Opróżnij kopiec
+        while (!minHeap.isEmpty()) {
+            sorted.add(minHeap.poll());
+        }
+
+        return sorted;
     }
 }

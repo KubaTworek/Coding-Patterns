@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static pl.jakubtworek.easy.heaps.Sorting.mergeSortedLists;
+import static pl.jakubtworek.easy.heaps.Sorting.sortNearlySortedArray;
 
 class SortingTest {
 
@@ -67,5 +68,24 @@ class SortingTest {
             list.append(val);
         }
         return list;
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideKSortedArrays")
+    void testSortNearlySortedArray(List<Integer> input, int k, List<Integer> expected) {
+        List<Integer> result = sortNearlySortedArray(input, k);
+        assertEquals(expected, result);
+    }
+
+    private static Stream<Arguments> provideKSortedArrays() {
+        return Stream.of(
+                Arguments.of(List.of(5, 1, 9, 4, 7, 10), 2, List.of(1, 4, 5, 7, 9, 10)),
+                Arguments.of(List.of(3, 2, 1), 2, List.of(1, 2, 3)),
+                Arguments.of(List.of(1, 2, 3, 4), 1, List.of(1, 2, 3, 4)),
+                Arguments.of(List.of(10, 9, 8, 7, 4), 4, List.of(4, 7, 8, 9, 10)),
+                Arguments.of(List.of(4, 3, 2, 1), 3, List.of(1, 2, 3, 4)),
+                Arguments.of(List.of(), 2, List.of()),
+                Arguments.of(List.of(1), 1, List.of(1))
+        );
     }
 }
