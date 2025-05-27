@@ -3,13 +3,13 @@ package pl.jakubtworek.easy.linked_list;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import pl.jakubtworek.easy.linked_list.SinglyLinkedList;
 
 import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static pl.jakubtworek.easy.linked_list.Restructuring.*;
+import static pl.jakubtworek.easy.linked_list.Restructuring.removeKthFromEnd;
+import static pl.jakubtworek.easy.linked_list.Restructuring.reverse;
 
 class RestructuringTest {
 

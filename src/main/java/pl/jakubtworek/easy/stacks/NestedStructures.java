@@ -1,6 +1,5 @@
 package pl.jakubtworek.easy.stacks;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 

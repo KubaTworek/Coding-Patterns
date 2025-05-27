@@ -31,6 +31,7 @@ class ExerciseTest {
                 Arguments.of(List.of(), List.of())
         );
     }
+
     @ParameterizedTest
     @MethodSource("provideRotationCases")
     void testRotateRight(List<Integer> input, int k, List<Integer> expected) {

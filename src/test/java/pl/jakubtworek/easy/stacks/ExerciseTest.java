@@ -29,14 +29,15 @@ class ExerciseTest {
 
     @ParameterizedTest
     @CsvSource({
-            "'(()())(())', '()()'",
-            "'(()())(())(()(()))', '()()()()'",
-            "'()()', ''"
+            "'(()())(())', '()()()'",
+            "'(()())(())(()(()))', '()()()()()'",
+            "'()()', '()()'"
     })
 
     void testRemoveOuterParentheses(String input, String expected) {
         assertEquals(expected, removeOuterParentheses(input));
     }
+
     @ParameterizedTest
     @CsvSource({
             "'1 + 1', 2",

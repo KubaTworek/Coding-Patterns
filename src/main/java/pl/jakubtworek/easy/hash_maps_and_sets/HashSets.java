@@ -1,6 +1,9 @@
 package pl.jakubtworek.easy.hash_maps_and_sets;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 class HashSets {
 

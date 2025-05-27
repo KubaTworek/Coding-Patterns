@@ -9,7 +9,40 @@ class Exercise {
      * Znajdź największą liczbę całkowitą `x`, taką że `x * x <= n`, bez użycia funkcji pierwiastkowania.
      */
     static int findSquareRootFloor(int n) {
-        return 0;
+        if (n < 1000) return 0;
+        if (n == 1) return 1;
+        int lower = 0, upper = n;
+        int x = (lower + upper) / 2;
+        while (true) {
+            if (x * x > n) {
+                int temp = (lower + x) / 2;
+                x = temp;
+                if (x * x > n) {
+                    lower = temp;
+                    upper = x;
+                } else if (x * x < n) {
+                    lower = x;
+                    upper = temp;
+                } else {
+                    return x;
+                }
+            } else if (x * x < n) {
+                int temp = (x + upper) / 2;
+                x = (x + upper) / 2;
+                if (x * x > n) {
+                    lower = temp;
+                    upper = x;
+                } else if (x * x < n) {
+                    lower = x;
+                    upper = temp;
+                } else {
+                    return x;
+                }
+            } else {
+                return x;
+            }
+            System.out.println("x " + x);
+        }
     }
 
     /**

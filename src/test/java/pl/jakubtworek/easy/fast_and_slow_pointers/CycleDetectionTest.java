@@ -1,8 +1,8 @@
 package pl.jakubtworek.easy.fast_and_slow_pointers;
 
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import pl.jakubtworek.easy.linked_list.SinglyLinkedList;
 
 import java.util.stream.Stream;

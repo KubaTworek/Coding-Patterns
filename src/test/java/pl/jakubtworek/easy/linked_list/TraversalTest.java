@@ -3,14 +3,14 @@ package pl.jakubtworek.easy.linked_list;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import pl.jakubtworek.easy.linked_list.SinglyLinkedList;
 
 import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static pl.jakubtworek.easy.linked_list.Traversal.*;
+import static pl.jakubtworek.easy.linked_list.Traversal.findIntersectionNode;
+import static pl.jakubtworek.easy.linked_list.Traversal.isLinkedListPalindrome;
 
 class TraversalTest {
 
@@ -71,7 +71,7 @@ class TraversalTest {
         assertEquals(expected, result);
     }
 
-    static Stream<org.junit.jupiter.params.provider.Arguments> provideListsForPalindromeCheck() {
+    static Stream<Arguments> provideListsForPalindromeCheck() {
         return Stream.of(
                 // ✅ Pusta lista — palindrom
                 Arguments.of(List.of(), true),
